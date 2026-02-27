@@ -104,7 +104,7 @@
                 <x-common.common-grid-shape/>
                 <div class="flex max-w-xs flex-col items-center">
                     <a href="/" class="mb-4 block">
-                        <img src="./images/logo/my.jpeg" alt="Logo" />
+                        <img src="./images/logo/logo.png" alt="Logo" />
                     </a>
                     <p class="text-center text-gray-400 dark:text-white/60">
                         Sistem Manajemen Inventori Warung Berkah

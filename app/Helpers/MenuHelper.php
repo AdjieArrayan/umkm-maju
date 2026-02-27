@@ -29,15 +29,7 @@ class MenuHelper
                     ['name' => 'Stok Masuk', 'path' => route('stock-ins.index'), 'pro' => false],
                     ['name' => 'Stok Keluar', 'path' => route('stock-outs.index'), 'pro' => false]
                 ],
-            ],
-            [
-                'name' => 'Pages',
-                'icon' => 'pages',
-                'subItems' => [
-                    ['name' => 'Blank Page', 'path' => '/blank', 'pro' => false],
-                    ['name' => '404 Error', 'path' => '/error-404', 'pro' => false]
-                ],
-            ],
+            ],qq
         ];
     }
 
