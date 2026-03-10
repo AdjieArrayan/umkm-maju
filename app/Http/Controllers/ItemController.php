@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-
+use App\Imports\ItemsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ItemsTemplateExport;
 
 class ItemController extends Controller
 {
@@ -36,22 +38,49 @@ class ItemController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'category_id' => 'required',
-            'unit' => 'required',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0',
-            'minimum_stock' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'description' => 'nullable|string'
+        $request->validate([
+            'items.*.name' => 'required',
+            'items.*.category_id' => 'required',
+            'items.*.unit' => 'required',
+            'items.*.price' => 'required|numeric|min:0',
+            'items.*.stock' => 'required|numeric|min:0',
+            'items.*.minimum_stock' => 'required|numeric|min:0',
+            'items.*.image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'items.*.description' => 'nullable|string'
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('items', 'public');
         }
 
-        Item::create($validated);
+        if (!$request->items) {
+
+            Item::create($request->all());
+
+        } else {
+
+            foreach ($request->items as $index => $item) {
+
+                $imagePath = null;
+
+                if ($request->hasFile("items.$index.image")) {
+                    $imagePath = $request->file("items.$index.image")
+                        ->store('items', 'public');
+                }
+
+                Item::create([
+                    'name' => $item['name'],
+                    'category_id' => $item['category_id'],
+                    'unit' => $item['unit'],
+                    'price' => $item['price'],
+                    'stock' => $item['stock'],
+                    'minimum_stock' => $item['minimum_stock'],
+                    'description' => $item['description'] ?? null,
+                    'image' => $imagePath
+                ]);
+            }
+
+        }
 
         return redirect()
             ->route('items.index')
@@ -105,5 +134,22 @@ class ItemController extends Controller
         return redirect()
             ->route('items.index')
             ->with('success', 'Item berhasil dihapus.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new ItemsImport, $request->file('file'));
+
+        return redirect()->route('items.index')
+            ->with('success', 'Item berhasil diimport.');
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new ItemsTemplateExport, 'template-import-items.xlsx');
     }
 }

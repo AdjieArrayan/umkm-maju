@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class StockIn extends Component
+class StockIns extends Component
 {
     public $stockIns;
 
@@ -14,7 +14,6 @@ class StockIn extends Component
     {
         $this->stockIns = $stockIns;
     }
-
 
     public function render(): View|Closure|string
     {

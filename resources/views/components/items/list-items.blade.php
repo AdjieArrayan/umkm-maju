@@ -24,13 +24,25 @@
                 >
             </form>
 
-            <a href="{{ route('items.create') }}"
+                <a href="{{ route('items.create') }}"
                 class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
                 + Tambah Item
-            </a>
+                </a>
+
+                <button onclick="openImportModal()"
+                class="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700">
+                Import Excel
+                </button>
+
+                <a href="{{ route('items.template') }}"
+                class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                Download Template
+                </a>
 
         </div>
+
     </div>
+</div>
 
     @if(session('success'))
         <div class="mx-6 mb-4 flex items-center gap-3 rounded-lg bg-green-100 px-4 py-3 text-sm text-green-700 border border-green-200">
@@ -50,14 +62,14 @@
         <table class="min-w-full">
             <thead>
                 <tr class="border-y border-gray-100 dark:border-white/[0.05]">
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Image</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Name</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Unit</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Stock</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Price</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Description</th>
-                    <th class="px-6 py-3 text-xs text-left text-gray-500">Status</th>
-                    <th class="px-6 py-3 text-xs text-center text-gray-500">Action</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Image</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Name</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Unit</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Stock</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Price</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Description</th>
+                    <th class="px-6 py-3 text-xs text-left text-gray-500 dark:text-white/90">Status</th>
+                    <th class="px-6 py-3 text-xs text-center text-gray-500 dark:text-white/90">Action</th>
                 </tr>
             </thead>
 
@@ -126,7 +138,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="button"
+                                <button type="button"
                                     onclick="openDeleteModal({{ $item->id }})"
                                     class="px-3 py-1 text-xs text-white bg-red-600 rounded-lg hover:bg-red-700">
                                     Hapus
@@ -222,6 +234,32 @@
         </div>
     </div>
 
+    <div id="importModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center">
+
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 border border-green-200">
+
+            <h3 class="text-lg font-semibold mb-4">Import Excel Item</h3>
+
+            <form action="{{ route('items.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <input type="file" name="file" class="w-full mb-4 border rounded-lg p-2"required>
+                <div class="flex justify-end gap-3">
+
+                    <button type="button" onclick="closeImportModal()" class="px-4 py-2 text-sm bg-gray-200 rounded-lg">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700">
+                        Import
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         function openDeleteModal(id) {
             const modal = document.getElementById('deleteModal');
@@ -239,7 +277,19 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-        </script>
+
+        function openImportModal() {
+            const modal = document.getElementById('importModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeImportModal() {
+            const modal = document.getElementById('importModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
 
 
 

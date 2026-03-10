@@ -9,7 +9,9 @@
     <!-- Header -->
     <div class="flex flex-col gap-3 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
 
-        <h2 class="text-xl font-semibold">Stok Keluar</h2>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+            Stok Keluar
+        </h3>
 
         <div class="flex items-center gap-3">
 
@@ -19,7 +21,7 @@
                        name="search"
                        value="{{ request('search') }}"
                        placeholder="Cari item / deskripsi..."
-                       class="px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-brand-500">
+                       class="px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-brand-500 text-gray-800 dark:text-white/90">
 
                 {{-- supaya filter tidak hilang saat search --}}
                 @if(request('filter'))
@@ -86,11 +88,11 @@
         <table class="min-w-full">
             <thead>
                 <tr class="border-gray-200 border-y dark:border-gray-700">
-                    <th class="px-4 py-3 text-center text-sm text-gray-500">Tanggal</th>
-                    <th class="px-4 py-3 text-center text-sm text-gray-500">Item</th>
-                    <th class="px-4 py-3 text-center text-sm text-gray-500">Jumlah</th>
-                    <th class="px-4 py-3 text-center text-sm text-gray-500">Deskripsi</th>
-                    <th class="px-4 py-3 text-center text-sm text-gray-500">Action</th>
+                    <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Tanggal</th>
+                    <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Item</th>
+                    <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Jumlah</th>
+                    <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Deskripsi</th>
+                    <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Action</th>
                 </tr>
             </thead>
 

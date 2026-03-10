@@ -29,7 +29,12 @@ class MenuHelper
                     ['name' => 'Stok Masuk', 'path' => route('stock-ins.index'), 'pro' => false],
                     ['name' => 'Stok Keluar', 'path' => route('stock-outs.index'), 'pro' => false]
                 ],
-            ],qq
+            ],
+            [
+                'icon' => 'dashboard',
+                'name' => 'Laporan',
+                'path' => route('reports.index'),
+            ],
         ];
     }
 

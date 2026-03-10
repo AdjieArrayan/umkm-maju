@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StockInController;
 use App\Http\Controllers\StockOutController;
+use App\Http\Controllers\ReportController;
 
 
 // Authentification
@@ -35,6 +36,10 @@ Route::middleware('auth.custom')->group(function () {
         ->name('items.edit');
     Route::put('/update-item/{item}', [ItemController::class, 'update'])
         ->name('items.update');
+    Route::post('/items/import', [ItemController::class, 'import'])
+        ->name('items.import');
+    Route::get('/items/template', [ItemController::class, 'downloadTemplate'])
+        ->name('items.template');
 
 // CRUD Kategori
     Route::get('/categories-list', [CategoryController::class, 'index'])
@@ -77,6 +82,14 @@ Route::middleware('auth.custom')->group(function () {
         ->name('stock-outs.update');
     Route::delete('/delete-stock-out/{stockOut}', [StockOutController::class, 'destroy'])
         ->name('stock-outs.destroy');
+
+// Report (Excel/Pdf)
+    Route::get('/reports', [ReportController::class, 'index'])
+        ->name('reports.index');
+    Route::post('/reports/excel', [ReportController::class, 'exportExcel'])
+        ->name('reports.excel');
+    Route::post('/reports/pdf', [ReportController::class, 'exportPDF'])
+        ->name('reports.pdf');
 
     Route::get('/blank', function () {
             return view('pages.blank', ['title' => 'Blank']);

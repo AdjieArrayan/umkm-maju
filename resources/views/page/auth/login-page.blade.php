@@ -19,9 +19,26 @@
 
                 {{-- ERROR LOGIN --}}
                 @if ($errors->any())
-                    <div class="mb-4 rounded-lg bg-red-100 p-3 text-sm text-red-700">
-                        Email atau password salah.
+                <div class="mb-4 flex items-start gap-2 rounded-lg bg-red-100 p-3 text-sm text-red-700">
+
+                    <!-- Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="mt-0.5 h-5 w-5 flex-shrink-0"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 9v2m0 4h.01M10.29 3.86l-7.1 12.3A2 2 0 005.08 19h13.84a2 2 0 001.89-2.84l-7.1-12.3a2 2 0 00-3.42 0z"/>
+                    </svg>
+
+                    <!-- Text -->
+                    <div>
+                        <ul class="list-disc pl-4">
+                            Email atau password salah.
+                        </ul>
                     </div>
+
+                </div>
                 @endif
 
                 @if (session('auth_error'))

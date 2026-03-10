@@ -41,10 +41,10 @@
             <table class="min-w-full">
                 <thead>
                     <tr class="border-gray-200 border-y dark:border-gray-700">
-                        <th class="px-4 py-3 text-start text-sm text-gray-500">#</th>
-                        <th class="px-4 py-3 text-start text-sm text-gray-500">Category Name</th>
-                        <th class="px-4 py-3 text-start text-sm text-gray-500">Item</th>
-                        <th class="px-4 py-3 text-center text-sm text-gray-500">Action</th>
+                        <th class="px-4 py-3 text-start text-sm text-gray-500 dark:text-white/90">#</th>
+                        <th class="px-4 py-3 text-start text-sm text-gray-500 dark:text-white/90">Category Name</th>
+                        <th class="px-4 py-3 text-start text-sm text-gray-500 dark:text-white/90">Item</th>
+                        <th class="px-4 py-3 text-center text-sm text-gray-500 dark:text-white/90">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
