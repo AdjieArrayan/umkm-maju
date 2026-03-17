@@ -46,10 +46,9 @@
                 </svg>
             </button>
 
-            <!-- Logo (mobile only) -->
-            <a href="/" class="xl:hidden">
-                <img class="dark:hidden" src="/images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="/images/logo/logo-dark.svg" alt="Logo" />
+            <a href="/" class="xl:hidden flex items-center gap-2">
+                <img src="/images/logo/logo.png" alt="Logo"
+                    class="h-8 sm:h-10 md:h-12 w-auto object-contain">
             </a>
 
             <!-- Application Menu Toggle (mobile only) -->
