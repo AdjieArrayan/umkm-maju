@@ -15,10 +15,26 @@
                 Pergerakan stok berdasarkan periode
             </p>
         </div>
+
+        <form method="GET">
+            <select name="year"
+                onchange="this.form.submit()"
+                class="border rounded-lg px-3 py-2 text-sm">
+
+                @for ($y = now()->year; $y >= 2022; $y--)
+                    <option value="{{ $y }}" {{ request('year', now()->year) == $y ? 'selected' : '' }}>
+                        {{ $y }}
+                    </option>
+                @endfor
+
+            </select>
+        </form>
+
     </div>
 
     <div class="h-[350px]">
-        <canvas id="stockChart"></canvas>
+        <canvas id="stockChart">
+        </canvas>
     </div>
 
 </div>

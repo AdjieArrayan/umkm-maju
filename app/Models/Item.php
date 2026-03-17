@@ -50,8 +50,6 @@ class Item extends Model
     /* =========================
      | OPTIONAL HELPER
      ========================= */
-
-    // Status stok (untuk dashboard)
     public function getStockStatusAttribute()
     {
         if ($this->stock == 0) {

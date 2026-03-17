@@ -7,7 +7,6 @@
 
 <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
 
-    {{-- Header --}}
     <div class="mb-6">
         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
             Peringatan Stok
@@ -17,7 +16,6 @@
         </p>
     </div>
 
-    {{-- Stock Health Bar --}}
     <div class="mb-6">
         <div class="flex justify-between mb-2">
             <span class="text-sm text-gray-500">Kesehatan Stok</span>
@@ -34,7 +32,6 @@
         </div>
     </div>
 
-    {{-- Status Message --}}
     <div class="mb-6 text-sm text-gray-600 dark:text-gray-400">
         @if($outOfStock > 0)
             ⚠️ Ada barang yang stoknya habis.
@@ -45,7 +42,6 @@
         @endif
     </div>
 
-    {{-- Warning List --}}
     @if(count($items) > 0)
         <div class="space-y-3 max-h-[220px] overflow-y-auto custom-scrollbar">
             @foreach($items as $item)
@@ -66,7 +62,6 @@
         </div>
     @endif
 
-    {{-- Footer Summary --}}
     <div class="flex justify-between mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-sm">
         <div>
             <p class="text-gray-500">Stok Menipis</p>

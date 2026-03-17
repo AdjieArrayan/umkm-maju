@@ -7,7 +7,7 @@
         this.dropdownOpen = false;
     }
 }" @click.away="closeDropdown()">
-    <!-- User Button -->
+
     <button
         class="flex items-center text-gray-700 dark:text-gray-400"
         @click.prevent="toggleDropdown()"
@@ -21,7 +21,6 @@
             {{ auth()->user()->name }}
         </span>
 
-        <!-- Chevron Icon -->
         <svg
             class="w-5 h-5 transition-transform duration-200"
             :class="{ 'rotate-180': dropdownOpen }"
@@ -33,7 +32,6 @@
         </svg>
     </button>
 
-    <!-- Dropdown Start -->
     <div
         x-show="dropdownOpen"
         x-transition:enter="transition ease-out duration-100"
@@ -45,7 +43,7 @@
         class="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark z-50"
         style="display: none;"
     >
-        <!-- User Info -->
+
         <div>
             <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
                 {{ auth()->user()->name }}
@@ -56,7 +54,6 @@
             </span>
         </div>
 
-        <!-- Sign Out -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button
@@ -74,5 +71,5 @@
             </button>
         </form>
     </div>
-    <!-- Dropdown End -->
+
 </div>

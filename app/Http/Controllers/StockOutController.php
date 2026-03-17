@@ -13,14 +13,12 @@ class StockOutController extends Controller
     {
         $query = StockOut::with('item')->latest();
 
-        // SEARCH
         if ($request->search) {
             $query->whereHas('item', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%');
             })->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
-        // FILTER
         if ($request->filter) {
             match ($request->filter) {
                 'today'   => $query->whereDate('date', Carbon::today()),
@@ -57,7 +55,6 @@ class StockOutController extends Controller
             $isOverLimit = true;
         }
 
-        // Kurangi stok
         $item->stock -= $request->quantity;
         $item->save();
 
@@ -89,7 +86,6 @@ class StockOutController extends Controller
 
         $item = Item::findOrFail($request->item_id);
 
-        // Kembalikan stok lama dulu
         $item->stock += $stockOut->quantity;
 
         $isOverLimit = false;
@@ -98,7 +94,6 @@ class StockOutController extends Controller
             $isOverLimit = true;
         }
 
-        // Kurangi stok baru
         $item->stock -= $request->quantity;
         $item->save();
 
@@ -118,7 +113,6 @@ class StockOutController extends Controller
     {
         $item = $stockOut->item;
 
-        // Kembalikan stok
         $item->stock += $stockOut->quantity;
         $item->save();
 

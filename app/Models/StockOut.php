@@ -14,6 +14,13 @@ class StockOut extends Model
         'quantity',
         'date',
         'description',
+        'is_over_limit',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'quantity' => 'integer',
+        'is_over_limit' => 'boolean',
     ];
 
     public function item()

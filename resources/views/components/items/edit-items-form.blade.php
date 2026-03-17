@@ -2,6 +2,14 @@
 
 @section('content')
 
+    <div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
+
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+            Edit Barang
+        </h3>
+
+    </div>
+
     <form action="{{ route('items.update', $item->id) }}"
           method="POST"
           enctype="multipart/form-data"
@@ -9,47 +17,46 @@
         @csrf
         @method('PUT')
 
-        {{-- Nama Item --}}
+
+    <div id="itemsContainer">
+
+    <div class="item-form border rounded-xl p-5 mb-6">
+
         <div>
-            <label class="block mb-1 text-sm font-medium">Nama Item</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Nama Item</label>
             <input type="text" name="name"
                 value="{{ old('name', $item->name) }}"
-                class="w-full h-11 rounded-lg border px-4 text-sm">
+                class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
             @error('name') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
         </div>
 
-        {{-- Unit --}}
         <div>
-            <label class="block mb-1 text-sm font-medium">Unit</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Unit</label>
             <input type="text" name="unit"
                 value="{{ old('unit', $item->unit) }}"
-                class="w-full h-11 rounded-lg border px-4 text-sm">
+                class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
             @error('unit') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
         </div>
 
-        {{-- Harga --}}
         <div>
-            <label class="block mb-1 text-sm font-medium">Harga (Rp)</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Harga (Rp)</label>
             <input type="number" name="price" min="0"
                 value="{{ old('price', $item->price) }}"
-                class="w-full h-11 rounded-lg border px-4 text-sm">
+                class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
             @error('price') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
         </div>
 
-        {{-- Stok --}}
         <div>
-            <label class="block mb-1 text-sm font-medium">Stok</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Stok</label>
             <input type="number" name="stock" min="0"
                 value="{{ old('stock', $item->stock) }}"
-                class="w-full h-11 rounded-lg border px-4 text-sm">
+                class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
             @error('stock') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
         </div>
 
-        {{-- Gambar --}}
         <div>
-            <label class="block mb-1 text-sm font-medium">Gambar Item</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Gambar Item</label>
 
-            {{-- Preview Gambar Lama --}}
             <div class="mb-3">
                 @if($item->image)
                     <img id="imagePreview"
@@ -63,19 +70,20 @@
 
             <input type="file" name="image" accept="image/*"
                 onchange="previewImage(event)"
-                class="w-full text-sm">
+                class="w-full text-sm dark:text-white/90">
 
             @error('image') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
         </div>
 
-        {{-- Deskripsi --}}
         <div>
-            <label class="block mb-1 text-sm font-medium">Deskripsi</label>
+            <label class="block mb-1 text-sm font-medium dark:text-white/90">Deskripsi</label>
             <textarea name="description" rows="3"
-                class="w-full rounded-lg border px-4 py-2 text-sm">{{ old('description', $item->description) }}</textarea>
+                class="w-full rounded-lg border px-4 py-2 text-sm dark:text-white/90">{{ old('description', $item->description) }}</textarea>
         </div>
 
-        {{-- Submit --}}
+    </div>
+    </div>
+
         <div class="pt-4">
             <button type="submit"
                 class="px-6 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700">
@@ -85,18 +93,16 @@
 
     </form>
 
-
-    {{-- Preview Script --}}
     <script>
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function(){
-            const output = document.getElementById('imagePreview');
-            output.src = reader.result;
-            output.classList.remove('hidden');
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.classList.remove('hidden');
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
     </script>
 
 @endsection

@@ -76,29 +76,19 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
         $totalMasuk = $stockIns->sum('quantity');
         $totalKeluar = $stockOuts->sum('quantity');
 
-        /*
-        |--------------------------------------------------------------------------
-        | HEADER
-        |--------------------------------------------------------------------------
-        */
+        /* =========================================================
+         | HEADER
+         ========================================================= */
 
         $rows[] = ['LAPORAN STOK BARANG'];
         $rows[] = ['Periode : '.$this->start.' s/d '.$this->end];
 
-        /*
-        |--------------------------------------------------------------------------
-        | JARAK 2 BARIS
-        |--------------------------------------------------------------------------
-        */
-
         $rows[] = [''];
         $rows[] = [''];
 
-        /*
-        |--------------------------------------------------------------------------
-        | RINGKASAN
-        |--------------------------------------------------------------------------
-        */
+        /* =========================================================
+         | RINGKASAN
+         ========================================================= */
 
         $rows[] = ['RINGKASAN',''];
 
@@ -112,20 +102,12 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
 
         $this->summaryEnd = count($rows);
 
-        /*
-        |--------------------------------------------------------------------------
-        | JARAK 2 BARIS
-        |--------------------------------------------------------------------------
-        */
-
         $rows[] = [''];
         $rows[] = [''];
 
-        /*
-        |--------------------------------------------------------------------------
-        | TABEL TRANSAKSI
-        |--------------------------------------------------------------------------
-        */
+        /* =========================================================
+         | TABEL TRANSAKSI
+         ========================================================= */
 
         $rows[] = ['TABEL TRANSAKSI'];
 
@@ -147,20 +129,12 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
 
         $this->trxEnd = count($rows);
 
-        /*
-        |--------------------------------------------------------------------------
-        | JARAK 2 BARIS
-        |--------------------------------------------------------------------------
-        */
-
         $rows[] = [''];
         $rows[] = [''];
 
-        /*
-        |--------------------------------------------------------------------------
-        | REKAP STOK
-        |--------------------------------------------------------------------------
-        */
+        /* =========================================================
+         | REKAP STOK
+         ========================================================= */
 
         $rows[] = ['REKAP STOK'];
 
@@ -186,20 +160,12 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
 
         $this->rekapEnd = count($rows);
 
-        /*
-        |--------------------------------------------------------------------------
-        | JARAK 2 BARIS
-        |--------------------------------------------------------------------------
-        */
-
         $rows[] = [''];
         $rows[] = [''];
 
-        /*
-        |--------------------------------------------------------------------------
-        | PERINGATAN STOK RENDAH
-        |--------------------------------------------------------------------------
-        */
+        /* =========================================================
+         | PERINGATAN STOK BARANG
+         ========================================================= */
 
         $rows[] = ['PERINGATAN STOK RENDAH'];
 
@@ -262,6 +228,7 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
                 $sheet->mergeCells('A1:E1');
                 $sheet->mergeCells('A2:E2');
                 $sheet->mergeCells('A5:B5');
+                $sheet->mergeCells('A12:E12');
 
                 $header = [
 
@@ -297,23 +264,11 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
 
                 ];
 
-                /*
-                |--------------------------------------------------------------------------
-                | RINGKASAN
-                |--------------------------------------------------------------------------
-                */
-
                 $sheet->getStyle("A{$this->summaryHeader}:B{$this->summaryHeader}")
                     ->applyFromArray($header);
 
                 $sheet->getStyle("A{$this->summaryHeader}:B{$this->summaryEnd}")
                     ->applyFromArray($border);
-
-                /*
-                |--------------------------------------------------------------------------
-                | TRANSAKSI
-                |--------------------------------------------------------------------------
-                */
 
                 $sheet->getStyle("A{$this->trxHeader}:E{$this->trxHeader}")
                     ->applyFromArray($header);
@@ -321,35 +276,17 @@ class ReportExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
                 $sheet->getStyle("A{$this->trxHeader}:E{$this->trxEnd}")
                     ->applyFromArray($border);
 
-                /*
-                |--------------------------------------------------------------------------
-                | REKAP
-                |--------------------------------------------------------------------------
-                */
-
                 $sheet->getStyle("A{$this->rekapHeader}:D{$this->rekapHeader}")
                     ->applyFromArray($header);
 
                 $sheet->getStyle("A{$this->rekapHeader}:D{$this->rekapEnd}")
                     ->applyFromArray($border);
 
-                /*
-                |--------------------------------------------------------------------------
-                | WARNING
-                |--------------------------------------------------------------------------
-                */
-
                 $sheet->getStyle("A{$this->warningHeader}:B{$this->warningHeader}")
                     ->applyFromArray($header);
 
                 $sheet->getStyle("A{$this->warningHeader}:B{$this->warningEnd}")
                     ->applyFromArray($border);
-
-                /*
-                |--------------------------------------------------------------------------
-                | ALIGN
-                |--------------------------------------------------------------------------
-                */
 
                 $sheet->getStyle("A:A")->getAlignment()->setHorizontal('center');
                 $sheet->getStyle("C:D")->getAlignment()->setHorizontal('center');

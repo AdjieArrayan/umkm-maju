@@ -6,7 +6,6 @@
 
 <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
 
-    <!-- Header -->
     <div class="flex flex-col gap-3 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
 
         <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -15,18 +14,16 @@
 
         <div class="flex gap-2">
 
-            <!-- Search -->
             <form method="GET" action="{{ route('categories.index') }}">
                 <input
                     type="text"
                     name="search"
                     value="{{ request('search') }}"
                     placeholder="Search category..."
-                    class="px-4 py-2 border rounded-lg text-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="px-4 py-2 border rounded-lg text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-white/90"
                 >
             </form>
 
-            <!-- Tambah Kategori -->
             <a href="{{ route('categories.create') }}"
                 class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
                 + Tambah Kategori
@@ -35,7 +32,6 @@
         </div>
     </div>
 
-    <!-- Table -->
     <div class="overflow-hidden">
         <div class="max-w-full px-5 overflow-x-auto">
             <table class="min-w-full">
@@ -50,7 +46,7 @@
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                     @forelse ($categories as $category)
                         <tr>
-                            <td class="px-4 py-4 text-sm text-gray-500">
+                            <td class="px-4 py-4 text-sm text-gray-500 dark:text-white/90">
                                 {{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }}
                             </td>
 
@@ -58,7 +54,7 @@
                                 {{ $category->name }}
                             </td>
 
-                            <td class="px-6 py-3">
+                            <td class="px-6 py-3 dark:text-white/90">
                                 {{ $category->items_count }}
                             </td>
 
@@ -97,11 +93,9 @@
         </div>
     </div>
 
-    <!-- Pagination -->
     <div class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
         <div class="flex justify-center items-center gap-2">
 
-            {{-- Previous --}}
             @if ($categories->onFirstPage())
                 <span class="px-3 py-2 text-gray-400 border rounded-lg cursor-not-allowed">←</span>
             @else
@@ -111,8 +105,6 @@
                 </a>
             @endif
 
-
-            {{-- Page Numbers --}}
             @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
                 @if ($page == $categories->currentPage())
                     <span class="px-3 py-2 bg-blue-500 text-white rounded-lg">
@@ -126,8 +118,6 @@
                 @endif
             @endforeach
 
-
-            {{-- Next --}}
             @if ($categories->hasMorePages())
                 <a href="{{ $categories->nextPageUrl() }}"
                     class="px-3 py-2 border rounded-lg hover:bg-blue-50 hover:text-blue-600">

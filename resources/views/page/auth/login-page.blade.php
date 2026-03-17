@@ -4,7 +4,6 @@
 <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
     <div class="relative flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
 
-        <!-- FORM LOGIN -->
         <div class="flex w-full flex-1 flex-col lg:w-1/2">
 
             <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
@@ -17,11 +16,9 @@
                     </p>
                 </div>
 
-                {{-- ERROR LOGIN --}}
                 @if ($errors->any())
                 <div class="mb-4 flex items-start gap-2 rounded-lg bg-red-100 p-3 text-sm text-red-700">
 
-                    <!-- Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="mt-0.5 h-5 w-5 flex-shrink-0"
                          fill="none"
@@ -31,7 +28,6 @@
                               d="M12 9v2m0 4h.01M10.29 3.86l-7.1 12.3A2 2 0 005.08 19h13.84a2 2 0 001.89-2.84l-7.1-12.3a2 2 0 00-3.42 0z"/>
                     </svg>
 
-                    <!-- Text -->
                     <div>
                         <ul class="list-disc pl-4">
                             Email atau password salah.
@@ -53,7 +49,6 @@
 
                     <div class="space-y-5">
 
-                        <!-- EMAIL -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Email <span class="text-red-500">*</span>
@@ -72,7 +67,6 @@
                             @enderror
                         </div>
 
-                        <!-- PASSWORD -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Password <span class="text-red-500">*</span>
@@ -96,7 +90,6 @@
                             @enderror
                         </div>
 
-                        <!-- REMEMBER ME -->
                         <div class="flex items-center justify-between">
                             <label class="flex items-center text-sm text-gray-700 dark:text-gray-400">
                                 <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300">
@@ -104,7 +97,6 @@
                             </label>
                         </div>
 
-                        <!-- BUTTON -->
                         <button type="submit"
                             class="bg-brand-500 hover:bg-brand-600 w-full rounded-lg px-4 py-3 text-sm
                             font-medium text-white transition">
@@ -117,7 +109,7 @@
 
         <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
             <div class="z-1 flex items-center justify-center">
-                <!-- ===== Common Grid Shape Start ===== -->
+
                 <x-common.common-grid-shape/>
                 <div class="flex max-w-xs flex-col items-center">
                     <a href="/" class="mb-4 block">
@@ -129,7 +121,7 @@
                 </div>
             </div>
         </div>
-        <!-- Toggler -->
+
         <div class="fixed right-6 bottom-6 z-50">
             <button
                 class="bg-brand-500 hover:bg-brand-600 inline-flex size-14 items-center justify-center rounded-full text-white transition-colors"

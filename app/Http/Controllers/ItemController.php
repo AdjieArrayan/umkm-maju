@@ -129,7 +129,7 @@ class ItemController extends Controller
 
     public function destroy(Item $item): RedirectResponse
     {
-        $item->delete(); // soft delete saja
+        $item->delete();
 
         return redirect()
             ->route('items.index')

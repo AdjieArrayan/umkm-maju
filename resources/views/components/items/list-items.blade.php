@@ -20,7 +20,7 @@
                     name="search"
                     value="{{ request('search') }}"
                     placeholder="Search item..."
-                    class="px-4 py-2 border rounded-lg text-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="px-4 py-2 border rounded-lg text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-white/90"
                 >
             </form>
 
@@ -91,19 +91,19 @@
                             {{ $item->name }}
                         </td>
 
-                        <td class="px-6 py-3 text-sm text-gray-500">
+                        <td class="px-6 py-3 text-sm text-gray-500 dark:text-white/90">
                             {{ $item->unit ?? '-' }}
                         </td>
 
-                        <td class="px-6 py-3 text-sm">
+                        <td class="px-6 py-3 text-sm dark:text-white/90">
                             {{ $item->stock }}
                         </td>
 
-                        <td class="px-6 py-3 text-sm text-gray-500">
+                        <td class="px-6 py-3 text-sm text-gray-500 dark:text-white/90">
                             Rp {{ number_format($item->price ?? 0, 0, ',', '.') }}
                         </td>
 
-                        <td class="px-6 py-3 text-sm text-gray-500 max-w-xs truncate">
+                        <td class="px-6 py-3 text-sm text-gray-500 dark:text-white/90 max-w-xs truncate">
                             {{ $item->description ?? '-' }}
                         </td>
 

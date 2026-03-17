@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $search = $request->search;
 
-        $categories = Category::withCount('items') // 🔥 ini penting
+        $categories = Category::withCount('items')
             ->when($search, function ($query) use ($search) {
                 $query->where('name', 'like', "%{$search}%");
             })
@@ -67,7 +67,6 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
-        // Prevent delete kalau masih ada item
         if ($category->items()->count() > 0) {
             return back()->with('error', 'Kategori tidak bisa dihapus karena masih memiliki item.');
         }

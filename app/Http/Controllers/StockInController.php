@@ -74,7 +74,6 @@ class StockInController extends Controller
                 'description' => $request->description,
             ]);
 
-            // Tambah stok item
             $item = Item::findOrFail($request->item_id);
             $item->increment('stock', $request->quantity);
         });
@@ -102,13 +101,10 @@ class StockInController extends Controller
 
         DB::transaction(function () use ($request, $stockIn) {
 
-            // Ambil item lama
             $oldItem = Item::findOrFail($stockIn->item_id);
 
-            // Kurangi stok lama dulu
             $oldItem->decrement('stock', $stockIn->quantity);
 
-            // Update data stock in
             $stockIn->update([
                 'item_id' => $request->item_id,
                 'quantity' => $request->quantity,
@@ -116,7 +112,6 @@ class StockInController extends Controller
                 'description' => $request->description,
             ]);
 
-            // Tambah stok baru
             $newItem = Item::findOrFail($request->item_id);
             $newItem->increment('stock', $request->quantity);
         });
@@ -132,7 +127,6 @@ class StockInController extends Controller
 
             $item = Item::findOrFail($stockIn->item_id);
 
-            // Kurangi stok karena data dihapus
             $item->decrement('stock', $stockIn->quantity);
 
             $stockIn->delete();

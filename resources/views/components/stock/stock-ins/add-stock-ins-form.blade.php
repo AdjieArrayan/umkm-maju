@@ -9,7 +9,6 @@
         Tambah Stock In
     </h3>
 
-    {{-- Tanggal --}}
     <div>
         <label class="block mb-1 text-sm font-medium">Tanggal</label>
 
@@ -23,7 +22,6 @@
         @enderror
     </div>
 
-    {{-- Item --}}
     <div>
         <label class="block mb-1 text-sm font-medium">Item</label>
 
@@ -43,7 +41,6 @@
         @enderror
     </div>
 
-    {{-- Quantity --}}
     <div>
         <label class="block mb-1 text-sm font-medium">Jumlah</label>
 
@@ -59,7 +56,6 @@
         @enderror
     </div>
 
-    {{-- Deskripsi --}}
     <div>
         <label class="block mb-1 text-sm font-medium">Deskripsi (Opsional)</label>
 
@@ -73,7 +69,6 @@
         @enderror
     </div>
 
-    {{-- Submit --}}
     <div class="pt-4">
         <button type="submit"
             class="px-6 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700">

@@ -13,7 +13,6 @@
     @if ($errors->any())
         <div class="mb-4 flex items-start gap-2 rounded-lg border-l-4 border-red-500 bg-red-100 p-3 text-sm text-red-700">
 
-            <!-- Icon -->
             <svg xmlns="http://www.w3.org/2000/svg"
                 class="mt-0.5 h-5 w-5 flex-shrink-0"
                 fill="none"

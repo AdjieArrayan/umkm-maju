@@ -8,10 +8,11 @@ use App\Models\StockOut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         /* =========================================================
          | 1. METRIK UTAMA
@@ -25,10 +26,11 @@ class DashboardController extends Controller
         $totalStockIn  = StockIn::sum('quantity');
         $totalStockOut = StockOut::sum('quantity');
 
-
         /* =========================================================
          | 2. GRAFIK STOK MASUK & KELUAR (PER BULAN)
          ========================================================= */
+
+        $year = $request->year ?? now()->year;
 
         $months = range(1, 12);
 
@@ -40,7 +42,7 @@ class DashboardController extends Controller
                 DB::raw('MONTH(date) as month'),
                 DB::raw('SUM(quantity) as total')
             )
-            ->whereYear('date', now()->year)
+            ->whereYear('date', $year)
             ->groupBy(DB::raw('MONTH(date)'))
             ->pluck('total', 'month');
 
@@ -48,7 +50,7 @@ class DashboardController extends Controller
                 DB::raw('MONTH(date) as month'),
                 DB::raw('SUM(quantity) as total')
             )
-            ->whereYear('date', now()->year)
+            ->whereYear('date', $year)
             ->groupBy(DB::raw('MONTH(date)'))
             ->pluck('total', 'month');
 
@@ -59,7 +61,6 @@ class DashboardController extends Controller
             $stockInChart[]  = $stockInData[$month]  ?? 0;
             $stockOutChart[] = $stockOutData[$month] ?? 0;
         }
-
 
         /* =========================================================
          | 3. PERINGATAN STOK & REKOMENDASI RESTOK
