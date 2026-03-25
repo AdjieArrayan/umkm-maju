@@ -2,15 +2,15 @@
 
 @section('content')
 
-    <div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
+<div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
 
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-            Edit Barang
-        </h3>
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+        Edit Kategori
+    </h3>
 
-    </div>
+</div>
 
-    <form action="{{ route('categories.update', $category->id) }}" method="POST" class="space-y-5 max-w-xl">
+    <form action="{{ route('categories.update', $category->id) }}" method="POST" class="space-y-5">
         @csrf
         @method('PUT')
 
@@ -24,7 +24,7 @@
                     <input type="text"
                         name="name"
                         value="{{ old('name', $category->name) }}"
-                        class="w-full h-11 rounded-lg border px-4 text-sm ">
+                        class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
 
                     @error('name')
                         <p class="text-xs text-red-500">{{ $message }}</p>

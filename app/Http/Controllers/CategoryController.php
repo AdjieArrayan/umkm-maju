@@ -61,7 +61,7 @@ class CategoryController extends Controller
         ]);
 
         return redirect()
-            ->route('page.categories.list-categories')
+            ->route('categories.index')
             ->with('success', 'Kategori berhasil diperbarui.');
     }
 

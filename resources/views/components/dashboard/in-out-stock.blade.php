@@ -19,7 +19,7 @@
         <form method="GET">
             <select name="year"
                 onchange="this.form.submit()"
-                class="border rounded-lg px-3 py-2 text-sm">
+                class="border rounded-lg px-3 py-2 text-sm dark:text-white/90">
 
                 @for ($y = now()->year; $y >= 2022; $y--)
                     <option value="{{ $y }}" {{ request('year', now()->year) == $y ? 'selected' : '' }}>

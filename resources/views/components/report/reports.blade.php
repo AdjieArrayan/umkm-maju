@@ -36,6 +36,10 @@
     <form method="POST" action="{{ route('reports.pdf') }}" class="space-y-4">
     @csrf
 
+    <div id="itemsContainer">
+
+        <div class="item-form border rounded-xl p-5 mb-6">
+
         <div>
             <label class="block mb-1 text-sm font-medium dark:text-white/90">Tanggal Mulai</label>
             <input type="date" name="start_date" class="w-full border rounded-lg px-3 py-2 dark:text-white/90">
@@ -48,12 +52,18 @@
 
         <div>
             <label class="text-sm dark:text-white/90">Jenis Laporan</label>
-                <select name="type" class="w-full border rounded-lg px-3 py-2 dark:text-white/90">
+                <select name="type"
+                class="w-full h-11 rounded-lg border px-4 text-sm
+                bg-white text-gray-900
+                dark:bg-gray-800 dark:text-white dark:border-gray-700">
                     <option value="all">Semua</option>
                     <option value="in">Stok Masuk</option>
                     <option value="out">Stok Keluar</option>
                 </select>
         </div>
+
+    </div>
+</div>
 
         <div class="flex gap-3 pt-4">
 

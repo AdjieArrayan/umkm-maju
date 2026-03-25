@@ -6,6 +6,8 @@ use App\Models\StockOut;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 class StockOutController extends Controller
 {
@@ -42,29 +44,35 @@ class StockOutController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'item_id' => 'required|exists:items,id',
-            'quantity' => 'required|integer|min:1',
             'date' => 'required|date',
+            'items' => 'required|array',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.description' => 'nullable|string',
         ]);
 
-        $item = Item::findOrFail($request->item_id);
+        DB::transaction(function () use ($request) {
 
-        $isOverLimit = false;
+            foreach ($request->items as $itemData) {
 
-        if ($request->quantity > $item->stock) {
-            $isOverLimit = true;
-        }
+                $item = Item::findOrFail($itemData['item_id']);
 
-        $item->stock -= $request->quantity;
-        $item->save();
+                $isOverLimit = $itemData['quantity'] > $item->stock;
 
-        StockOut::create([
-            'item_id' => $request->item_id,
-            'quantity' => $request->quantity,
-            'date' => $request->date,
-            'description' => $request->description,
-            'is_over_limit' => $isOverLimit
-        ]);
+                // Kurangi stok
+                $item->decrement('stock', $itemData['quantity']);
+
+                // Simpan stock out
+                StockOut::create([
+                    'item_id' => $itemData['item_id'],
+                    'quantity' => $itemData['quantity'],
+                    'date' => $request->date,
+                    'description' => $itemData['description'] ?? null,
+                    'is_over_limit' => $isOverLimit
+                ]);
+            }
+
+        });
 
         return redirect()->route('stock-outs.index')
             ->with('success', 'Stock keluar berhasil ditambahkan');

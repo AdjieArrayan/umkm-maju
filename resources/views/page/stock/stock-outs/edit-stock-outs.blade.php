@@ -7,6 +7,7 @@
     <div class="mx-auto w-full max-w-6xl px-4">
         <x-stock.stock-outs.edit-stock-outs-form
             :items="$items"
+            :stockOuts="$stockOut"
         />
     </div>
 </div>

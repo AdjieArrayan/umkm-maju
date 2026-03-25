@@ -2,15 +2,15 @@
 
 @section('content')
 
-    <div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
+<div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
 
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-            Edit Barang
-        </h3>
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+        Tambah Kategori
+    </h3>
 
-    </div>
+</div>
 
-    <form action="{{ route('categories.store') }}" method="POST" class="space-y-5 max-w-xl">
+    <form action="{{ route('categories.store') }}" method="POST" class="space-y-5">
         @csrf
 
         <div id="itemsContainer">

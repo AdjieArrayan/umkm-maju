@@ -59,23 +59,28 @@ class StockInController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'item_id' => 'required|exists:items,id',
-            'quantity' => 'required|integer|min:1',
             'date' => 'required|date',
-            'description' => 'nullable|string',
+            'items' => 'required|array',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.description' => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($request) {
 
-            $stockIn = StockIn::create([
-                'item_id' => $request->item_id,
-                'quantity' => $request->quantity,
-                'date' => $request->date,
-                'description' => $request->description,
-            ]);
+            foreach ($request->items as $itemData) {
 
-            $item = Item::findOrFail($request->item_id);
-            $item->increment('stock', $request->quantity);
+                StockIn::create([
+                    'item_id' => $itemData['item_id'],
+                    'quantity' => $itemData['quantity'],
+                    'date' => $request->date,
+                    'description' => $itemData['description'] ?? null,
+                ]);
+
+                $item = Item::findOrFail($itemData['item_id']);
+                $item->increment('stock', $itemData['quantity']);
+            }
+
         });
 
         return redirect()

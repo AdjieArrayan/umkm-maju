@@ -1,37 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<x-common.page-breadcrumb pageTitle="Tambah Item" />
 
-<form action="{{ route('categories.store') }}" method="POST" class="space-y-5 max-w-xl">
-    @csrf
-
-    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-        Tambah Kategori
-    </h3>
-
-    {{-- Nama Kategori --}}
-    <div>
-        <label class="block mb-1 text-sm font-medium">Nama Kategori</label>
-
-        <input type="text"
-               name="name"
-               value="{{ old('name') }}"
-               placeholder="Contoh: Elektronik"
-               class="w-full h-11 rounded-lg border px-4 text-sm">
-
-        @error('name')
-            <p class="text-xs text-red-500">{{ $message }}</p>
-        @enderror
+<div class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+    <div class="mx-auto w-full max-w-6xl px-4">
+        <x-categories.add-categories-form
+        />
     </div>
-
-    {{-- Submit --}}
-    <div class="pt-4">
-        <button type="submit"
-            class="px-6 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700">
-            Simpan Kategori
-        </button>
-    </div>
-
-</form>
-
+</div>
 @endsection
