@@ -60,6 +60,8 @@
                value="{{ old('quantity', $stockOuts->quantity) }}"
                class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
 
+               
+
         @error('quantity')
             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
         @enderror

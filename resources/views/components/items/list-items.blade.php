@@ -42,7 +42,6 @@
         </div>
 
     </div>
-</div>
 
     @if(session('success'))
         <div class="mx-6 mb-4 flex items-center gap-3 rounded-lg bg-green-100 px-4 py-3 text-sm text-green-700 border border-green-200">
@@ -200,6 +199,7 @@
         </div>
     </div>
 
+</div>
 </div>
 
     <div id="deleteModal"

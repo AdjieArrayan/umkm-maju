@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\category;
+namespace App\View\Components\categories;
 
 use Closure;
 use Illuminate\Contracts\View\View;

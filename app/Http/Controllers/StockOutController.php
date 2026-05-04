@@ -51,24 +51,33 @@ class StockOutController extends Controller
             'items.*.description' => 'nullable|string',
         ]);
 
+        foreach ($request->items as $index => $itemData) {
+            $item = Item::find($itemData['item_id']);
+
+            if ($itemData['quantity'] > $item->stock) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        "items.$index.quantity" =>
+                            "Stok {$item->name} tidak cukup! Sisa: {$item->stock}"
+                    ]);
+            }
+        }
+
         DB::transaction(function () use ($request) {
 
             foreach ($request->items as $itemData) {
 
                 $item = Item::findOrFail($itemData['item_id']);
 
-                $isOverLimit = $itemData['quantity'] > $item->stock;
-
-                // Kurangi stok
                 $item->decrement('stock', $itemData['quantity']);
 
-                // Simpan stock out
                 StockOut::create([
                     'item_id' => $itemData['item_id'],
                     'quantity' => $itemData['quantity'],
                     'date' => $request->date,
                     'description' => $itemData['description'] ?? null,
-                    'is_over_limit' => $isOverLimit
+                    'is_over_limit' => false
                 ]);
             }
 
@@ -130,3 +139,4 @@ class StockOutController extends Controller
             ->with('success', 'Stock keluar berhasil dihapus');
     }
 }
+

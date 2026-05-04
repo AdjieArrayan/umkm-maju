@@ -26,9 +26,6 @@
     {{-- RIGHT SIDE --}}
     <div class="col-span-12 xl:col-span-4">
         <x-dashboard.stock-warning
-            :lowStock="$lowStockCount"
-            :outOfStock="$outOfStockCount"
-            :stockHealth="$stockHealth"
             :items="$lowStockItems"
         />
     </div>

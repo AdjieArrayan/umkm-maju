@@ -35,6 +35,11 @@ class MenuHelper
                 'name' => 'Laporan',
                 'path' => route('reports.index'),
             ],
+            [
+                'icon' => 'dashboard',
+                'name' => 'Analitik',
+                'path' => route('analytics.index'),
+            ],
         ];
     }
 

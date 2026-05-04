@@ -43,7 +43,9 @@
             class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
 
         @error('date')
-            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            <div class="mb-4 rounded-lg bg-yellow-100 p-3 text-sm text-yellow-700">
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            </div>
         @enderror
     </div>
 
@@ -64,7 +66,9 @@
         </select>
 
         @error('item_id')
-            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            <div class="mb-4 rounded-lg bg-yellow-100 p-3 text-sm text-yellow-700">
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            </div>
         @enderror
     </div>
 
@@ -76,9 +80,11 @@
             min="1"
             class="w-full h-11 rounded-lg border px-4 text-sm dark:text-white/90">
 
-        @error('quantity')
-            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-        @enderror
+             @error('items.0.quantity')
+                <div class="mb-4 rounded-lg bg-yellow-100 p-3 text-sm text-yellow-700">
+                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                </div>
+            @enderror
     </div>
 
     <div>
@@ -88,7 +94,9 @@
             class="w-full rounded-lg border px-4 py-2 text-sm dark:text-white/90"></textarea>
 
         @error('description')
-            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            <div class="mb-4 rounded-lg bg-yellow-100 p-3 text-sm text-yellow-700">
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+            </div>
         @enderror
     </div>
 

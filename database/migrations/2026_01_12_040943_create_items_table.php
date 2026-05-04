@@ -14,13 +14,13 @@ return new class extends Migration {
                 ->cascadeOnDelete();
 
             $table->string('name');
-            $table->string('unit'); // Kg, Pcs, Dus, dll
+            $table->string('unit'); 
 
-            $table->integer('stock')->default(0); // stok AKTUAL
+            $table->integer('stock')->default(0); 
             $table->integer('minimum_stock')->default(0);
 
             $table->decimal('price', 12, 2)->default(0);
-            $table->string('image')->nullable(); // path gambar
+            $table->string('image')->nullable(); 
 
             $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

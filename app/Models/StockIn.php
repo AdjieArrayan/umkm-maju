@@ -16,6 +16,11 @@ class StockIn extends Model
         'description',
     ];
 
+    protected $casts = [
+        'date' => 'date',
+        'quantity' => 'integer',
+    ];
+
     public function item()
     {
         return $this->belongsTo(Item::class);

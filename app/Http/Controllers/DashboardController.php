@@ -20,7 +20,6 @@ class DashboardController extends Controller
 
         $totalItems = Item::count();
 
-        // Gunakan stok aktual dari tabel items
         $totalStock = Item::sum('stock');
 
         $totalStockIn  = StockIn::sum('quantity');
@@ -63,47 +62,57 @@ class DashboardController extends Controller
         }
 
         /* =========================================================
-         | 3. PERINGATAN STOK & REKOMENDASI RESTOK
-         ========================================================= */
+        | 3. PERINGATAN STOK (BERBASIS FORECASTING)
+        ========================================================= */
 
-        $lowStockLimit = 10;
+        $allForecastItems = Item::all()->map(function ($item) {
 
-        $lowStockItems = Item::where('stock', '>', 0)
-            ->where('stock', '<=', $lowStockLimit)
-            ->orderBy('stock', 'asc')
-            ->take(5)
-            ->get()
-            ->map(function ($item) use ($lowStockLimit) {
+            $data = StockOut::where('item_id', $item->id)
+                ->orderBy('date', 'asc')
+                ->pluck('quantity')
+                ->toArray();
 
-                $avgDailyOut = StockOut::where('item_id', $item->id)
-                    ->whereBetween('date', [
-                        Carbon::now()->subDays(7),
-                        Carbon::now()
-                    ])
-                    ->avg('quantity') ?? 0;
+            if (count($data) < 3) return null;
 
-                $recommendedStock = max(
-                    ($lowStockLimit + ($avgDailyOut * 7)) - $item->stock,
-                    0
-                );
+            $forecast = array_sum(array_slice($data, -3)) / 3;
 
-                return [
-                    'name'        => $item->name,
-                    'stock'       => $item->stock,
-                    'recommended' => (int) round($recommendedStock),
-                ];
-            });
+            if ($forecast <= 0) return null;
 
-        $lowStockCount = Item::where('stock', '>', 0)
-            ->where('stock', '<=', $lowStockLimit)
+            $daysLeft = $item->stock / $forecast;
+
+            return [
+                'name' => $item->name,
+                'stock' => $item->stock,
+                'forecast' => $forecast,
+                'days_left' => $daysLeft,
+            ];
+        })->filter();
+
+
+        // ✅ COUNT (untuk product metrics)
+        $lowStockCount = $allForecastItems
+            ->filter(fn($item) => $item['days_left'] <= 5)
             ->count();
 
-        $outOfStockCount = Item::where('stock', 0)->count();
+        $outOfStockCount = $allForecastItems
+            ->filter(fn($item) => $item['days_left'] <= 0)
+            ->count();
 
-        $stockHealth = $totalItems > 0
-            ? round((($totalItems - $outOfStockCount) / $totalItems) * 100, 2)
-            : 100;
 
+        // ✅ LIST (untuk stock warning)
+        $lowStockItems = $allForecastItems
+            ->filter(fn($item) => $item['days_left'] <= 5)
+            ->sortBy('days_left')
+            ->take(5)
+            ->map(function ($item) {
+                return [
+                    'name' => $item['name'],
+                    'stock' => $item['stock'],
+                    'days_left' => round($item['days_left'], 1),
+                    'recommended' => ceil($item['forecast'] * 7)
+                ];
+            })
+            ->values();
 
         /* =========================================================
          | 4. ALUR BARANG (STOCK FLOW)
@@ -158,12 +167,11 @@ class DashboardController extends Controller
             'totalStockOut'    => $totalStockOut,
             'stockInChart'     => $stockInChart,
             'stockOutChart'    => $stockOutChart,
+            'lowStockItems'    => $lowStockItems,
             'lowStockCount'    => $lowStockCount,
             'outOfStockCount'  => $outOfStockCount,
-            'stockHealth'      => $stockHealth,
-            'lowStockItems'    => $lowStockItems,
             'productFlows'     => $productFlows,
-            'chartLabels' => $chartLabels,
+            'chartLabels'      => $chartLabels,
         ]);
     }
 }

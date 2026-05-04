@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->date('date');
             $table->text('description')->nullable();
 
-            // penanda jika stok keluar melebihi stok
             $table->boolean('is_over_limit')->default(false);
 
             $table->timestamps();

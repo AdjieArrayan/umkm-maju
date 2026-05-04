@@ -108,3 +108,32 @@ class ReportController extends Controller
         return $pdf->download($filename);
     }
 }
+
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'type' => 'required'
+        ]);
+
+        $start = $request->start_date;
+        $end = $request->end_date;
+        $type = $request->type ?? 'semua';
+
+        return Excel::download(new ReportExport($request), "laporan-stok.xlsx");
+
+        $stockIns = StockIn::with('item')
+            ->whereBetween('date', [$start, $end])
+            ->get();
+
+        $stockOuts = StockOut::with('item')
+            ->whereBetween('date', [$start, $end])
+            ->get();
+
+        $pdf = Pdf::loadView('page.report.pdf-reports', compact(
+            'stockIns',
+            'stockOuts',
+            'start',
+            'end'
+        ));
+
+        return $pdf->download("laporan-stok.pdf");

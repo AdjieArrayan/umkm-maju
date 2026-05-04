@@ -154,7 +154,15 @@
             </a>
         @endif
 
-        @foreach ($stockOuts->getUrlRange(1, $stockOuts->lastPage()) as $page => $url)
+            @php
+            $current = $stockOuts->currentPage();
+            $last = $stockOuts->lastPage();
+
+            $start = max($current - 2, 1);
+            $end = min($current + 2, $last);
+        @endphp
+
+        @foreach ($stockOuts->getUrlRange($start, $end) as $page => $url)
             @if ($page == $stockOuts->currentPage())
                 <span class="px-3 py-2 bg-blue-500 text-white rounded-lg">
                     {{ $page }}
